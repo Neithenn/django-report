@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Prueba Eze {% endblock title %}</title>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+</head>
+<body>
+    {% block body %}
+    <h1>Template index</h1>
+
+    <form method='GET'>
+        <input type='text' name='datafilter'></input>
+        <button type="submit" class="btn btn-primary">BUSCAR</button>
+    </form>
+    <table border=2>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Factura Original</th>
+                <th>Factura Asociada</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+       
+            {% for value in data%}
+            <tr>
+            <th>{{value.id}}</th>
+            <th>{{value.bill1}}</th>
+            <th>{{value.bill2}}</th>
+            <th><a href="{% url 'edit' value.id %}">EDITAR</a> <a href="{% url 'delete' value.id %}">ELIMINAR</a></th>
+            </tr>
+            {% endfor %}
+
+            <a href="{% url 'export_records_csv' %}">Exportar</a>
+            <a href="{% url 'delete_all_content' %}">Borrar tabla</a>
+            <a href="{% url 'upload_content' %}">Agregar contenido</a>
+  
+
+        </tbody>
+    </table>
+    <a href="{% url 'create'%}">CREAR</a>
+    {% endblock body %}
+    {% bootstrap_javascript jquery='full' %}
+</body>
+</html>
